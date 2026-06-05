@@ -32,6 +32,12 @@ map("n", "<leader>4", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })
 end, { desc = "Terminal" })
 
+-- Window resizing without macOS Mission Control conflicts
+map("n", "<leader>wh", "<cmd>vertical resize -5<cr>", { desc = "Decrease Window Width" })
+map("n", "<leader>wl", "<cmd>vertical resize +5<cr>", { desc = "Increase Window Width" })
+map("n", "<leader>wj", "<cmd>resize -5<cr>", { desc = "Decrease Window Height" })
+map("n", "<leader>wk", "<cmd>resize +5<cr>", { desc = "Increase Window Height" })
+
 -- IDEA-like code actions
 map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>R", vim.lsp.buf.rename, { desc = "Rename" })

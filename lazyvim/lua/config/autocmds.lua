@@ -64,3 +64,20 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost", "BufEnter" }, {
   pattern = "*.java",
   callback = insert_java_template,
 })
+
+local autosave_group = vim.api.nvim_create_augroup("user_auto_save", { clear = true })
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost", "BufLeave" }, {
+  group = autosave_group,
+  callback = function()
+    if vim.bo.buftype ~= "" or not vim.bo.modifiable or vim.bo.readonly or not vim.bo.modified then
+      return
+    end
+
+    if vim.api.nvim_buf_get_name(0) == "" then
+      return
+    end
+
+    vim.cmd("silent! write")
+  end,
+})
